@@ -19,17 +19,25 @@
 ### SIP 請求
 SIP 的六項基本的方法向伺服器發出請求，以下簡單敘述：
 
-| 方法     | 敘述  | 
-| :-----: | :------------------ | 
-| INVITE  | 建立通話請求          |
-| ACK     | 確認 INVITE 完成     |
-| OPTIONS | 查詢狀態與其他相關資訊 | 
-| BYE     | 終止通話             |
-| CANCEL  | 取消正在請求的通話     |
-| REGISTER| 註冊使用者            |
+| 方法 | 敘述 | 
+| :--: | :---| 
+| INVITE | 邀請建立會議(Session) |
+| ACK | 回覆確認邀請(INVITE)的回覆已收到 |
+| OPTIONS | 用來傳送 midcall訊號(mid-session 資訊)並不改變 Session 狀態 | 
+| BYE | 結束一個已連結的 Session |
+| CANCEL | 取消一個已發出邀請但尚未連結的 Session |
+| REGISTER | 註冊使用者的 URL |
 
 ### SIP 回應
-SIP 回應分成 Provisional (暫時)及 Final (決定)兩類，Provisional 為 1XX ， Final 則包含 2XX ~ 6XX 。1XX 為通知性應答、 2XX 為成功應答、 3XX 為轉接應答、 4XX 為呼叫錯誤、 5XX 為伺服器錯誤、 6XX 為全局錯誤。
+
+SIP Responses 訊息包含一個三個位數的狀態碼 (status code)，用來表示回應原因：
+
+* **1XX** - Information Messages. (訊息通知，請求處理中尚未完成。)
+* **2XX** - Successful Responses. (請求處理成功。)
+* **3XX** - Redirection Responses. (重新導向，將請求訊息重新導向至另一個 SIP 元件。)
+* **4XX** - Request Failure Responses. (客戶端錯誤，錯誤的原因在於請求端。可以矯正後重試。)
+* **5XX** - Server Failure Responses. (伺服器端錯誤，錯誤的原因在於目的端。可以重試其他的 location。)
+* **6XX** - Global Failure Responses. (錯誤 - Global Error ，請求失敗且無法重試。)
 
 | 代碼  | 敘述    | 代碼  | 敘述         | 
 | :--: | :------ | :--: | :-----------| 
@@ -71,7 +79,7 @@ SIP 回應分成 Provisional (暫時)及 Final (決定)兩類，Provisional 為 
 | 604  | 無處存在 |
 | 605  | 不可使用 |
 
-## SIP 工作流程
+## SIP 流程
 
 由下圖可知，當 Client 1 撥打電話給 Client 2 時，會先發送 INVITE 請求並且與 Client 1 請求代理伺服器授權。當前置動作完成以後， SIP Server 會發送 INVITE 給 Client 2 ，此時雙方的電話將會響起，假設雙方都接受電話請求，此時開始進行對話。最後，當一方送出 BYE 訊息時，系統會執行通話終止，並且同時送出 BYE 訊息給另一方結束此次通話。
 
