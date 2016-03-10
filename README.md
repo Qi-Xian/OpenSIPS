@@ -203,7 +203,7 @@ sudo chmod 755 /usr/local/etc/opensips/opensips.cfg
 ```
 
 #### 設定 OpenSIPs listen：
-使用你慣用的編輯軟體如: vim ，開啟 /usr/local/etc/opensips/opensips.fcg 進行設定。
+使用你慣用的編輯軟體如: vim ，開啟 /usr/local/etc/opensips/opensips.cfg 進行設定。
 
 ``` 
 ...
