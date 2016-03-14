@@ -247,9 +247,14 @@ sudo chmod 755 /usr/local/etc/opensips/opensips.cfg
 
 ``` 
 ...
+advertised_address="10.26.1.25"
+alias="10.26.1.25"
+
 listen=udp:10.21.20.111:5060
 ...
 ```
+
+> 若你想在 AWS EC2 或 Openstack Instance 佈署 OpenSIPS 服務，請務必加入 advertised_address 與 alias ，如此一來你的服務才能夠被正確的對應出來。如果你使用的是 EC2 請輸入 Public IP ，如果你使用的是 Openstack Instance 請輸入 Floating IPs。
 
 #### 新增 Domain 至資料庫中：
 首先使用 `mysql -u root -p` 指令並輸入密碼後進入 MySQL ，接下來，透過以下指令建立 Domain 至 opensips.domain 資料表。
