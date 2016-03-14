@@ -129,12 +129,13 @@ SIP Responses 訊息包含一個三個位數的狀態碼 (status code)，用來�
 
 #### 作業系統與 SIP 套件：
 
-*   Ubuntu - 14.04 Server
-*   OpenSIPS - 2.1 
+*   Ubuntu - 14.04
+*   OpenSIPS - 2.1
+*   Openstack -  
 
-| 主機  | IP 位址    | 
-| :--: | :------: |
-| SIP Server | 10.21.20.111 |
+| 主機 | Private IP | Floating IP |
+| :--: | :------: | :-----: |
+| SIP Server | 192.168.100.174 | 10.26.1.25 |
 
 
 #### 更新 apt-get：
@@ -250,7 +251,7 @@ sudo chmod 755 /usr/local/etc/opensips/opensips.cfg
 advertised_address="10.26.1.25"
 alias="10.26.1.25"
 
-listen=udp:10.21.20.111:5060
+listen=udp:192.168.100.174:5060
 ...
 ```
 
@@ -260,7 +261,7 @@ listen=udp:10.21.20.111:5060
 首先使用 `mysql -u root -p` 指令並輸入密碼後進入 MySQL ，接下來，透過以下指令建立 Domain 至 opensips.domain 資料表。
 
 ```
-INSERT INTO opensips.domain(domain) VALUES('10.21.20.111');
+INSERT INTO opensips.domain(domain) VALUES('192.168.100.174');
 ```
 
 並且可以透過搜尋語法，確認是否有將該筆資料新增進資料表中。
