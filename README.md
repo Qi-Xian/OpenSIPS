@@ -133,7 +133,7 @@ SIP Responses 訊息包含一個三個位數的狀態碼 (status code)，用來�
 *   OpenSIPS - 2.1
 *   Openstack -  
 
-| 主機 | Private IP | Floating IP |
+| 主機 | Private IP | Public IP |
 | :--: | :------: | :-----: |
 | SIP Server | 192.168.100.174 | 10.26.1.25 |
 
@@ -181,7 +181,7 @@ sudo vim /usr/local/etc/opensips/opensipsctlrc
 修改如下，將部分註解刪除
 
 ## your SIP domain
-SIP_DOMAIN=ubuntustudio
+# SIP_DOMAIN=ubuntustudio
 ## chrooted directory
 # $CHROOT_DIR="/path/to/chrooted/directory"
 ## database type: MYSQL, PGSQL, ORACLE, DB_BERKELEY, or DBTEXT, 
@@ -256,25 +256,6 @@ listen=udp:192.168.100.174:5060
 ```
 
 > 若你想在 AWS EC2 或 Openstack Instance 佈署 OpenSIPS 服務，請務必加入 advertised_address 與 alias ，如此一來你的服務才能夠被正確的對應出來。如果你使用的是 EC2 請輸入 Public IP ，如果你使用的是 Openstack Instance 請輸入 Floating IPs。
-
-#### 新增 Domain 至資料庫中：
-首先使用 `mysql -u root -p` 指令並輸入密碼後進入 MySQL ，接下來，透過以下指令建立 Domain 至 opensips.domain 資料表。
-
-```
-INSERT INTO opensips.domain(domain) VALUES('192.168.100.174');
-```
-
-並且可以透過搜尋語法，確認是否有將該筆資料新增進資料表中。
-
-```
-SELECT * FROM opensips.domain;
-```
-
-最後，離開 MySQL。
-
-```
-exit;
-```
 
 #### OpenSIPS 操作：
 啟動：
